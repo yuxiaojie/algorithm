@@ -17,24 +17,30 @@ public class Q6 {
      * @param n
      */
     public static void josephus(int m, int n) {
+        long curr = System.currentTimeMillis();
 
-        LinkedList<Integer> indexList = new LinkedList<>();
+        ArrayList<Integer> indexList = new ArrayList<>();
         for (int i = 1; i <= n; i++)
             indexList.add(i);
 
         int i = 0;
-        System.out.print("remove: ");
+//        System.out.print("remove: ");
         while (n > 0) {
 
             int rm = (i + m) % n;
             i = rm;
             n--;
-            System.out.print(indexList.remove(rm) + ", ");
+            indexList.remove(rm);
+//            System.out.print(indexList.remove(rm) + ", ");
         }
-        System.out.println();
+//        System.out.println();
+
+        System.out.println("josephus spend: " + (System.currentTimeMillis() - curr) + " ms");
     }
 
     public static void josephus2(int m, int n) {
+
+        long curr = System.currentTimeMillis();
 
         int i, j, mPrime, numLeft;
         ArrayList<Integer> l = new ArrayList<>();
@@ -45,9 +51,8 @@ public class Q6 {
         int item = 0;
 
         numLeft = n;
-        mPrime = m % n;
 
-        System.out.print("remove: ");
+//        System.out.print("remove: ");
         for (i = 0; i < n; i++) {
 
             mPrime = m % numLeft;
@@ -68,28 +73,31 @@ public class Q6 {
                 }
             }
 
-            System.out.print(item + ", ");
+//            System.out.print(item + ", ");
             iter.remove();
             if (!iter.hasNext())
                 iter = l.listIterator();
-//            System.out.println();
-//            for (int x : l)
-//                System.out.print(x + ", ");
             numLeft--;
         }
-        System.out.println();
+//        System.out.println();
+        System.out.println("josephus2 spend: " + (System.currentTimeMillis() - curr) + " ms");
     }
 
     public static void main(String[] args) {
 
-        josephus(1, 5);
-        josephus(1, 10);
-        josephus(3, 10);
+//        josephus(0, 5);
+//        josephus(1, 5);
+//        josephus(1, 10);
+//        josephus(3, 10);
+//
+//
+//        System.out.println(" --------------------------------------");
+//        josephus(0, 5);
+//        josephus2(1, 5);
+//        josephus2(1, 10);
+//        josephus2(3, 10);
 
-
-        System.out.println(" --------------------------------------");
-        josephus2(1, 5);
-        josephus2(1, 10);
-        josephus2(3, 10);
+        josephus(100, 500000);
+        josephus2(100, 500000);
     }
 }
