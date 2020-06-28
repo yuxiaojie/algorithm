@@ -97,7 +97,7 @@ public class Q6 {
 //        josephus2(1, 10);
 //        josephus2(3, 10);
 
-        josephus(100, 500000);
-        josephus2(100, 500000);
+        josephus(100, 5000);
+        josephus2(100, 5000);
     }
 }
