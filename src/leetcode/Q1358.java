@@ -47,6 +47,22 @@ public class Q1358 {
         return count;
     }
 
+    public int maxArea(int[] height) {
+
+        int max = 0;
+        for (int i = 0, j = height.length - 1; i < j; ) {
+
+            int area = (j - i) * Math.min(height[i], height[j]);
+            max = Math.max(max, area);
+
+            if (height[i] < height[j])
+                i++;
+            else
+                j--;
+        }
+        return max;
+    }
+
     public static void main(String[] args) {
 
         Q1358 q = new Q1358();
@@ -54,5 +70,8 @@ public class Q1358 {
         System.out.println("aaacb => " + q.numberOfSubstrings("aaacb"));
         System.out.println("abc => " + q.numberOfSubstrings("abc"));
         System.out.println("acbbcac => " + q.numberOfSubstrings("acbbcac"));
+
+
+        System.out.println("maxArea => " + q.maxArea(new int[]{1,8,6,2,5,4,8,3,7}));
     }
 }
