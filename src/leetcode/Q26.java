@@ -24,14 +24,29 @@ package leetcode;
 你不需要考虑数组中超出新长度后面的元素。
 * */
 
+import utils.ArraysUtils;
+
 public class Q26 {
 
     public int removeDuplicates(int[] nums) {
 
-        for (int i = 1; i < nums.length; i++) {
-//            if (nums[i] )
-        }
-        return 0;
+        int last = 1;
+        for (int i = 1; i < nums.length; i++)
+            if (nums[i] != nums[i - 1])
+                nums[last++] = nums[i];
+
+        return last;
     }
 
+    public static void main(String[] args) {
+
+        Q26 q = new Q26();
+        int[] a1 = {1, 1, 2};
+        System.out.println("repeat = " + q.removeDuplicates(a1));
+        ArraysUtils.showIntArray(a1);
+
+        int[] a2 = {0, 0, 1, 1, 1, 2, 2, 3, 3, 4};
+        System.out.println("repeat = " + q.removeDuplicates(a2));
+        ArraysUtils.showIntArray(a2);
+    }
 }
