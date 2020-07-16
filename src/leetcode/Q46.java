@@ -1,5 +1,6 @@
 package leetcode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -21,7 +22,30 @@ import java.util.List;
 * */
 public class Q46 {
 
+    List<List<Integer>> result = new ArrayList<>();
+
     public List<List<Integer>> permute(int[] nums) {
-        return null;
+        backtrace(nums, new boolean[nums.length], new ArrayList());
+        return result;
+    }
+
+    private void backtrace(int[] nums, boolean[] cache, List<Integer> tmp) {
+
+        if (tmp.size() == nums.length) {
+            result.add(new ArrayList(tmp));
+            return;
+        }
+
+        for (int i = 0; i < nums.length; i++) {
+
+            if (tmp.contains(nums[i]))
+                continue;
+
+            tmp.add(nums[i]);
+            cache[i] = true;
+            backtrace(nums, cache, tmp);
+            tmp.remove(tmp.size() - 1);
+            cache[i] = false;
+        }
     }
 }
