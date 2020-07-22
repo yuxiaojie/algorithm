@@ -11,13 +11,14 @@ package leetcode;
 给定 1->2->3->4, 你应该返回 2->1->4->3.
 * */
 
-class ListNode {
-    int val;
-    ListNode next;
-    ListNode(int x) { val = x; }
-}
-
 public class Q24 {
+
+    static class ListNode {
+        int val;
+        ListNode next;
+        ListNode(int x) { val = x; }
+    }
+
     // 1, 2, 3, 4, 5, 6
     public ListNode swapPairs(ListNode head) {
         if(head == null || head.next == null){

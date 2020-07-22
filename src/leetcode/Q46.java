@@ -25,13 +25,13 @@ public class Q46 {
     List<List<Integer>> result = new ArrayList<>();
 
     public List<List<Integer>> permute(int[] nums) {
-        backtrace(nums, new boolean[nums.length], new ArrayList());
+        backtrace(nums, new ArrayList<>());
         return result;
     }
 
-    private void backtrace(int[] nums, boolean[] cache, List<Integer> tmp) {
+    private void backtrace(int[] nums, List<Integer> tmp) {
 
-        if (tmp.size() == nums.length) {
+        if (nums.length == tmp.size()) {
             result.add(new ArrayList(tmp));
             return;
         }
@@ -42,10 +42,13 @@ public class Q46 {
                 continue;
 
             tmp.add(nums[i]);
-            cache[i] = true;
-            backtrace(nums, cache, tmp);
+            backtrace(nums, tmp);
             tmp.remove(tmp.size() - 1);
-            cache[i] = false;
         }
+    }
+
+    public static void main(String[] args) {
+        Q46 q = new Q46();
+        System.out.println(q.permute(new int[]{1, 2, 3}));
     }
 }
