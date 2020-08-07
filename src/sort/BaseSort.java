@@ -129,6 +129,34 @@ public class BaseSort {
         return a;
     }
 
+    public static Comparable[] mergeSort(Comparable[] a) {
+        return mergeSort(a, 0, a.length - 1);
+    }
+
+    private static Comparable[] mergeSort(Comparable[] a, int left, int right) {
+        if (left == right)
+            return new Comparable[] { a[left] };
+
+        int mid = (left + right) / 2;
+        Comparable[] leftArr = mergeSort(a, left, mid);
+        Comparable[] rightArr = mergeSort(a, mid + 1, right);
+
+        int lp = 0, rp = 0, i = 0;
+        Comparable[] result = new Comparable[leftArr.length + rightArr.length];
+        while (lp < leftArr.length && rp < rightArr.length)
+            result[i++] = leftArr[lp].compareTo(rightArr[rp]) < 0 ? leftArr[lp++] : rightArr[rp++];
+
+        while (lp < leftArr.length)
+            result[i++] = leftArr[lp++];
+        while (rp < rightArr.length)
+            result[i++] = rightArr[rp++];
+
+        for (int j = 0; j < result.length; j++) {
+            a[j + left] = result[j];
+        }
+        return result;
+    }
+
     @FunctionalInterface
     interface TestSpend {
         void sort(Comparable[] a);
@@ -159,7 +187,8 @@ public class BaseSort {
 //        selectionSort(data);        //  5w 9353 ms
 //        insertionSort(data);        //  10w 8369 ms
 //        insertionSort2(data);     // 10w  4756 ms
-        shellSort(data);            // 10w  26 ms
+//        shellSort(data);            // 10w  26 ms
+        mergeSort(data);            // 10w  26 ms
 
         show(data);
         System.out.println("is sorted : " + BaseSort.isSorted(data));
