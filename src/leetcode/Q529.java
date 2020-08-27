@@ -52,27 +52,41 @@ public class Q529 {
         return board;
     }
 
-    public int minArray(int[] numbers) {
+    public char[][] updateBoard2(char[][] board, int[] click) {
+        int m = board.length, n = board[0].length;
+        int row = click[0], col = click[1];
 
-        int left = 0, right = numbers.length - 1;
-        int min = Integer.MAX_VALUE;
-        while (left <= right) {
+        if (board[row][col] == 'M') {
+            board[row][col] = 'X';
+        } else {
+            int count = 0;
+            for (int i = -1; i < 2; i++) {
+                for (int j = -1; j < 2; j++) {
+                    if (i == 0 && j == 0) continue;
+                    int x = row + i, y = col + j;
+                    if (x < 0 || x >= m || y < 0 || y >= n) continue;
+                    if (board[x][y] == 'X' || board[x][y] == 'M') count++;
+                }
+            }
 
-            int mid = (left + right) / 2;
-
-            min = Math.min(min, numbers[mid]);
-            if (numbers[mid] == numbers[right]) {
-                right--;
-            } else if (numbers[mid] > numbers[right]) {
-                left = mid + 1;
+            if (count > 0) {
+                board[row][col] = (char)(count + '0');
             } else {
-                right = mid - 1;
+                board[row][col] = 'B';
+                for (int i = -1; i < 2; i++) {
+                    for (int j = -1; j < 2; j++) {
+                        if (i == 0 && j == 0) continue;
+                        int x = row + i, y = col + j;
+                        if (x < 0 || x >= m || y < 0 || y >= n) continue;
+                        if (board[x][y] == 'E') updateBoard2(board, new int[]{x, y});
+                    }
+                }
             }
         }
-        return min;
+        return board;
     }
 
     public static void main(String[] args) {
-        System.out.println(new Q529().minArray(new int[]{3, 3, 1, 3}));
+        System.out.println(new Q529().updateBoard2(new char[][]{{'E','E','E','E','E'},{'E','E','M','E','E'},{'E','E','E','E','E'},{'E','E','E','E','E'}}, new int[]{3, 0}));
     }
 }
