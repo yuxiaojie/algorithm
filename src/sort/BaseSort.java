@@ -1,5 +1,6 @@
 package sort;
 
+import java.util.ArrayDeque;
 import java.util.Random;
 
 public class BaseSort {
@@ -12,11 +13,15 @@ public class BaseSort {
         Comparable t = a[i];
         a[i] = a[j];
         a[j] = t;
+//        show(a);
     }
 
     private static boolean isSorted(Comparable[] a) {
         for (int i = 1; i < a.length; i++)
-            if (less(a[i], a[i-1]))  return false;
+            if (less(a[i], a[i-1]))  {
+                System.out.println("[" + (i - 1) + ":" + i + "] is not sorted");
+                return false;
+            }
         return true;
     }
 
@@ -179,20 +184,59 @@ public class BaseSort {
         System.out.println("Sorting " + numSize + " elements takes " + (sum / testCount) + " ms");
     }
 
+    public static void quickSort(Comparable[] a) {
+
+        if (a == null || a.length == 0)
+            return;
+
+        quickSort(a, 0, a.length - 1);
+    }
+
+    private static void quickSort(Comparable[] a, int left, int right) {
+
+        if (left + 5 < right) {
+            int base = (left + right) / 2;
+            exch(a, base, right);
+
+            int i = left, j = right - 1;
+            while (true) {
+                while (i <= j && a[i].compareTo(a[right]) < 0) i++;
+                while (i <= j && a[j].compareTo(a[right]) > 0) j--;
+                if (i < j) exch(a, i, j);
+                else break;
+            }
+
+            exch(a, i, right);
+            quickSort(a, left, i - 1);
+            quickSort(a, i + 1, right);
+        } else {
+            insertionSort(a, left, right);
+        }
+    }
+
+    private static void insertionSort(Comparable[] a, int left, int right) {
+
+        for (int i = left + 1, j = 0; i <= right; i++) {
+            Comparable tmp = a[i];
+            for (j = i; j > left && tmp.compareTo(a[j - 1]) < 0; j--)  a[j] = a[j - 1];
+            a[j] = tmp;
+        }
+    }
     public static void main(String[] argv) {
 
-        Comparable[] data = genRandomArray(50);
+        Comparable[] data = genRandomArray(60);
         show(data);
 
 //        selectionSort(data);        //  5w 9353 ms
 //        insertionSort(data);        //  10w 8369 ms
 //        insertionSort2(data);     // 10w  4756 ms
 //        shellSort(data);            // 10w  26 ms
-        mergeSort(data);            // 10w  26 ms
+        quickSort(data);            // 10w  26 ms
 
         show(data);
         System.out.println("is sorted : " + BaseSort.isSorted(data));
 
-        testSpend(BaseSort::shellSort, 10000);
+//        testSpend(BaseSort::shellSort, 10000);
+
     }
 }
