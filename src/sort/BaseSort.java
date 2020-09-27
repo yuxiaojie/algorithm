@@ -194,7 +194,7 @@ public class BaseSort {
 
     private static void quickSort(Comparable[] a, int left, int right) {
 
-        if (left + 5 < right) {
+        if (left < right) {
             int base = (left + right) / 2;
             exch(a, base, right);
 

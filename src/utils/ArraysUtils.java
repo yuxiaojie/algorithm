@@ -8,4 +8,16 @@ public class ArraysUtils {
             System.out.print(a[i] + " ");
         System.out.println();
     }
+
+    private void printArray2(int[][] dp) {
+        System.out.println("[");
+        for (int[] i : dp) {
+            System.out.print("[");
+            for (int j : i) {
+                System.out.print(j + ", ");
+            }
+            System.out.println("]");
+        }
+        System.out.println("]");
+    }
 }
