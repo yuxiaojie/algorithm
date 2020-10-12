@@ -1,5 +1,8 @@
 package sort;
 
+import java.util.ArrayDeque;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 public class IntegerSort {
@@ -73,10 +76,10 @@ public class IntegerSort {
         if (left >= right)
             return arr;
 
-        int l = left, r = right - 1;
-        int base = arr[right];
-        while (true) {
+        int l = left + 1, r = right;
+        int base = arr[left];
 
+        while (true) {
             while (l <= r && arr[r] > base) r--;
             while (l <= r && arr[l] < base) l++;
 
@@ -84,9 +87,9 @@ public class IntegerSort {
             else break;
         }
 
-        swap(arr, right, l);
-        QuickSort(arr, left, l - 1);
-        QuickSort(arr, l + 1, right);
+        swap(arr, r, left);
+        QuickSort(arr, left, r - 1);
+        QuickSort(arr, r + 1, right);
         return arr;
     }
 
@@ -121,6 +124,7 @@ public class IntegerSort {
 
         for (int p = 0; p <  tmp.length; p++)
             arr[left + p] = tmp[p];
+
         return arr;
     }
 

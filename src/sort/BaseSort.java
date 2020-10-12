@@ -1,6 +1,8 @@
 package sort;
 
 import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Random;
 
 public class BaseSort {
@@ -212,6 +214,7 @@ public class BaseSort {
         } else {
             insertionSort(a, left, right);
         }
+
     }
 
     private static void insertionSort(Comparable[] a, int left, int right) {
